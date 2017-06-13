@@ -1,0 +1,2 @@
+   ./gradlew clean build bintrayUpload -P bintrayUser=seekting -P bintrayKey=a7ce4f090e883f0ccfbf03c92f4a3686c9d82ee8 -P dryRun=false
+   gradle clean build bintrayUpload -P bintrayUser=seekting -P bintrayKey=a7ce4f090e883f0ccfbf03c92f4a3686c9d82ee8 -P dryRun=false

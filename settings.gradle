@@ -1,0 +1,1 @@
+include ':app', ':external:demo_lib'
