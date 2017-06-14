@@ -3,6 +3,7 @@ package com.seekting.demo_lib;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.lang.annotation.Annotation;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -53,6 +55,22 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
             Log.d(TAG, "onCreate." + pkgName);
         }
         data = ClassUtils.getActivitiesClass(this, this.getPackageName(), EXCLUDE_LIST);
+
+        for (Class aClass : data) {
+            Annotation[] a = aClass.getDeclaredAnnotations();
+            for (Annotation annotation : a) {
+                if (Demo.class.isAssignableFrom(annotation.getClass())) {
+                    Demo d = Demo.class.cast(annotation);
+                    if(!TextUtils.isEmpty(d.desc())) {
+                        DESC_MAP.put(aClass, d.desc());
+                    }
+                    if(!TextUtils.isEmpty(d.title())) {
+                        TITLE_MAP.put(aClass, d.title());
+                    }
+
+                }
+            }
+        }
         final LayoutInflater layoutInflater = LayoutInflater.from(MainActivity.this);
         baseAdapter = new BaseAdapter() {
 

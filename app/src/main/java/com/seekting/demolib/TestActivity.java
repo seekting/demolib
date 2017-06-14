@@ -3,16 +3,10 @@ package com.seekting.demolib;
 import android.app.Activity;
 import android.os.Bundle;
 
-import com.seekting.demo_lib.MainActivity;
+import com.seekting.demo_lib.Demo;
 
+@Demo(title = "测试title", desc = "测试desc")
 public class TestActivity extends Activity {
-
-    static {
-
-        MainActivity.putTitle(TestActivity.class, "xxx");
-        MainActivity.putDesc(TestActivity.class, "xxx");
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

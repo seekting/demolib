@@ -14,5 +14,13 @@ public class BookActivity extends Activity {
     //代码...
 
 ```
+
+
+同样你也可以这样写，它会把标题和描述展示在demo列表里
+```java
+@Demo(title = "测试title", desc = "测试desc")
+public class TestActivity extends Activity {
+
+```
 以下是截图
 ![device-2017-06-13-162726.png](device-2017-06-13-162726.png)
