@@ -1,9 +1,14 @@
-加上就能用了思密达
-compile 'com.seekting:demolib:1.0.1'
+首先在gradle 里加上
+compile 'com.seekting:demolib:1.0.2'
+
+本lib会自动为你添加一个MainActivity，该Activity会把你的所有其它Activity罗列出来<br/>
+所以你的manifest不要定义程序入口，因为lib里已经有入口
 
 
-具体用法:
-manifest不要定义入口，因为lib里已经有入口.可能为每个demo加上描述和标题，每个demo是以activity为单位
+你的每一个demo必需也是一个Activity，并且可以为这些demo启名字。
+
+启名字的方法：
+可能为每个demo加上描述和标题，每个demo是以activity为单位
 
 ```java
 public class BookActivity extends Activity {
