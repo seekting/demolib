@@ -1,3 +1,8 @@
+ext {
+    bintrayUser = "seekting"
+    bintrayKey = System.getenv("bintrayKey")
+    dryRun = "false"
+}
 apply plugin: 'com.android.library'
 apply plugin: 'com.novoda.bintray-release'
 
@@ -6,8 +11,8 @@ tasks.withType(Javadoc) {
     options.addStringOption('encoding', 'UTF-8')
 }
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.3"
+    compileSdkVersion project.COMPILE_SDK_VERSION as int
+    buildToolsVersion project.BUILD_TOOLS_VERSION
 
     defaultConfig {
         minSdkVersion 15

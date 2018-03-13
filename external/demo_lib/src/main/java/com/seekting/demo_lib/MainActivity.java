@@ -17,7 +17,9 @@ import android.widget.TextView;
 import java.lang.annotation.Annotation;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 
 public class MainActivity extends Activity implements AdapterView.OnItemClickListener {
@@ -28,6 +30,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
     private BaseAdapter baseAdapter;
     public static HashMap<Class, String> DESC_MAP = new HashMap<Class, String>();
     public static HashMap<Class, String> TITLE_MAP = new HashMap<Class, String>();
+    public static HashMap<Class, Boolean> EXCLUDE_MAP = new HashMap<Class, Boolean>();
     public static final List<Class> EXCLUDE_LIST = new ArrayList<Class>();
 
     public static void putDesc(Class clazz, String desc) {
@@ -61,15 +64,23 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
             for (Annotation annotation : a) {
                 if (Demo.class.isAssignableFrom(annotation.getClass())) {
                     Demo d = Demo.class.cast(annotation);
-                    if(!TextUtils.isEmpty(d.desc())) {
+                    if (!TextUtils.isEmpty(d.desc())) {
                         DESC_MAP.put(aClass, d.desc());
                     }
-                    if(!TextUtils.isEmpty(d.title())) {
+                    if (!TextUtils.isEmpty(d.title())) {
                         TITLE_MAP.put(aClass, d.title());
+                    }
+                    if (d.exclude()) {
+                        EXCLUDE_MAP.put(aClass, true);
                     }
 
                 }
             }
+        }
+        Iterator<Map.Entry<Class, Boolean>> it = EXCLUDE_MAP.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry<Class, Boolean> entry = it.next();
+            data.remove(entry.getKey());
         }
         final LayoutInflater layoutInflater = LayoutInflater.from(MainActivity.this);
         baseAdapter = new BaseAdapter() {
