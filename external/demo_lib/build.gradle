@@ -1,6 +1,6 @@
 ext {
     bintrayUser = "seekting"
-    bintrayKey = System.getenv("bintrayKey")
+    bintrayKey = BINTRAYKEY
     dryRun = "false"
 }
 apply plugin: 'com.android.library'
