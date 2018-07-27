@@ -12,7 +12,6 @@ tasks.withType(Javadoc) {
 }
 android {
     compileSdkVersion project.COMPILE_SDK_VERSION as int
-    buildToolsVersion project.BUILD_TOOLS_VERSION
 
     defaultConfig {
         minSdkVersion project.MIN_SDK_VERSION as int
@@ -29,10 +28,14 @@ android {
         }
     }
     publishNonDefault true
+    buildToolsVersion '27.0.3'
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    compileOnly "com.android.support:appcompat-v7:$SUPPORT_V7_VERSION"
+    compileOnly "com.android.support:recyclerview-v7:$SUPPORT_V7_VERSION"
+    compileOnly "com.android.support:design:$SUPPORT_V7_VERSION"
 }
 
 publish {
