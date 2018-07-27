@@ -1,5 +1,5 @@
 首先在gradle 里加上
-compile 'com.seekting:demolib:1.0.2'
+compile 'com.seekting:demolib:1.0.8'
 
 本lib会自动为你添加一个MainActivity，该Activity会把你的所有其它Activity罗列出来<br/>
 所以你的manifest不要定义程序入口，因为lib里已经有入口

@@ -11,4 +11,6 @@ public @interface Demo {
     String title() default "";
 
     String desc() default "";
+
+    boolean exclude() default false;
 }
