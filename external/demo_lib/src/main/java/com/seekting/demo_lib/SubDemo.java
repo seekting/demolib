@@ -9,4 +9,6 @@ public @interface SubDemo {
 
     String desc() default "";
 
+    int priority() default -1;
+
 }

@@ -18,6 +18,8 @@ import android.widget.TextView;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 
@@ -26,7 +28,6 @@ public abstract class SubBaseActivity extends Activity {
     static class SubBaseViewHolder extends RecyclerView.ViewHolder {
         TextView title;
         TextView description;
-        TextView className;
 
         public SubBaseViewHolder(View itemView) {
             super(itemView);
@@ -37,6 +38,7 @@ public abstract class SubBaseActivity extends Activity {
         Method method;
         String title;
         String desc;
+        int priority;
     }
 
     @Override
@@ -71,12 +73,23 @@ public abstract class SubBaseActivity extends Activity {
                 data.title = btnName;
                 data.desc = subDemo.desc();
                 data.method = method;
+                data.priority = subDemo.priority();
                 datas.add(data);
 
             }
 
 
         }
+        Collections.sort(datas, new Comparator<Data>() {
+            @Override
+            public int compare(Data lhs, Data rhs) {
+                int result = lhs.priority - rhs.priority;
+                if (result == 0) {
+                    result = lhs.title.compareTo(rhs.title);
+                }
+                return result;
+            }
+        });
 
         final View.OnClickListener onclickListener = new View.OnClickListener() {
             @Override
@@ -94,11 +107,10 @@ public abstract class SubBaseActivity extends Activity {
         RecyclerView.Adapter adapter = new RecyclerView.Adapter<SubBaseViewHolder>() {
             @Override
             public SubBaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-                View rootView = layoutInflater.inflate(R.layout.demo_layout, null);
+                View rootView = layoutInflater.inflate(R.layout.sub_demo_layout, null);
                 SubBaseViewHolder viewHolder = new SubBaseViewHolder(rootView);
                 viewHolder.title = (TextView) rootView.findViewById(R.id.title);
                 viewHolder.description = (TextView) rootView.findViewById(R.id.description);
-                viewHolder.className = (TextView) rootView.findViewById(R.id.class_name);
                 viewHolder.itemView.setOnClickListener(onclickListener);
                 viewHolder.itemView.setBackgroundResource(R.drawable.default_ripple);
                 return viewHolder;
@@ -107,9 +119,8 @@ public abstract class SubBaseActivity extends Activity {
             @Override
             public void onBindViewHolder(SubBaseViewHolder holder, int position) {
                 Data data = datas.get(position);
-                holder.title.setText(data.desc);
-//                holder.description.setText(data.desc);
-                holder.className.setText(data.title);
+                holder.title.setText(data.priority == -1 ? data.title : data.priority + ". " + data.title);
+                holder.description.setText(data.desc);
                 holder.itemView.setTag(data);
 
             }
@@ -169,8 +180,8 @@ public abstract class SubBaseActivity extends Activity {
                 int left = parent.getPaddingLeft();
                 int right = parent.getWidth() - parent.getPaddingRight();
 
-                dividerPaint.setColor(Color.GRAY);
-                for (int i = 0; i < childCount - 1; i++) {
+                dividerPaint.setColor(Color.DKGRAY);
+                for (int i = 0; i < childCount; i++) {
                     View view = parent.getChildAt(i);
                     float top = view.getBottom();
                     float bottom = view.getBottom() + lineHeight;

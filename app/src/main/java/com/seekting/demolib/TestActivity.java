@@ -14,8 +14,13 @@ public class TestActivity extends SubBaseActivity {
         super.onCreate(savedInstanceState);
     }
 
-    @SubDemo(title = "testSub", desc = "testSub desc")
+    @SubDemo(title = "testSub", desc = "testSub desc", priority = 1)
     void testSub() {
+
+        Log.d("seekting", "TestActivity.testSub()");
+    }
+    @SubDemo(title = "testSub", desc = "testSub desc", priority = 2)
+    void testSub2() {
 
         Log.d("seekting", "TestActivity.testSub()");
     }

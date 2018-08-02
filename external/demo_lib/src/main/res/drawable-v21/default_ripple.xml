@@ -2,5 +2,5 @@
 <ripple
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:color="@color/gray">
-    <item android:drawable="@android:color/white"/>
+    <item android:drawable="@color/white_fa"/>
 </ripple>
